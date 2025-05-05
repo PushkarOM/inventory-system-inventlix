@@ -4,6 +4,7 @@ backend/**/*.pyc
 backend/db.sqlite3
 backend/env/
 backend/.env
+backend/media/
 *.pyc
 *.pyo
 *.pyd
