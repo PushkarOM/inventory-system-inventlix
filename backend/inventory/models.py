@@ -1,8 +1,6 @@
 from django.db import models
 
 
-
-
 class InventoryItem(models.Model):
     code =  models.CharField(max_length=10,unique=True,blank=False) # for product SKU
     product_name = models.CharField(max_length=100,blank=False)
