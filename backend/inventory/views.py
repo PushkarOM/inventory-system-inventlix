@@ -1,14 +1,15 @@
 import csv
 from django.http import HttpResponse
-from rest_framework import generics , filters, viewsets
+from rest_framework import generics , filters, viewsets , status
 from rest_framework.views import APIView 
 from rest_framework.permissions import IsAuthenticatedOrReadOnly , IsAuthenticated
+from rest_framework.response import Response
 from .models import InventoryItem
 from .serializers import InventoryItemSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-#  GET (list all) , POST (create new)
+#  GET (list all paginated) , POST (create new)
 class InventoryItemListCreateView(generics.ListCreateAPIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -61,3 +62,14 @@ class ExportInventoryCSV(APIView):
             ])
 
         return response
+    
+
+
+class InventoryItemListAllView(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request):
+        products = InventoryItem.objects.all()
+        serializer = InventoryItemSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
