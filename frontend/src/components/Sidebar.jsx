@@ -9,10 +9,10 @@ const Sidebar = () => {
   return (
     <aside className="w-64 bg-white border-r h-full shadow-sm">
       <nav className="p-4 space-y-2">
-        <NavLink to="/dashboard/overview" className={navLinkClass}>
+        <NavLink to="/overview" className={navLinkClass}>
           Overview
         </NavLink>
-        <NavLink to="/dashboard/products" className={navLinkClass}>
+        <NavLink to="/products" className={navLinkClass}>
           All Products
         </NavLink>
       </nav>

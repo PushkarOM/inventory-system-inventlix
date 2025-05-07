@@ -20,7 +20,7 @@ const LoginPage = () => {
       });
       const token = response.data.token;
       localStorage.setItem("token", token);
-      navigate("/dashboard");
+      navigate("/overview");
     } catch (err) {
       setError("Invalid credentials. Please try again.");
     }
@@ -71,11 +71,11 @@ const LoginPage = () => {
               Sign In
             </Button>
           </form>
-          <div className="mt-4 text-center">
+          {/* <div className="mt-4 text-center">
             <a href="/public" className="text-purple-600 hover:underline">
               Go Unlogged In
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

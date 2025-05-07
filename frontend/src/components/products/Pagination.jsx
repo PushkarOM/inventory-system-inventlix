@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const Pagination = ({ currentPage, totalPages }) => {
+const Pagination = ({ currentPage, totalPages, searchParams }) => {
   const navigate = useNavigate();
 
   const goToPage = (newPage) => {
-    navigate(`?page=${newPage}`);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", newPage);
+    navigate(`?${newParams.toString()}`);
   };
 
   return (
