@@ -19,7 +19,10 @@ import {
 import { useState } from "react";
 import axiosInstance from "../../helpers/axiosInstance";
 
+
 const CreateProductModal = ({ isOpen, onClose, onCreated }) => {
+
+// form feilds
   const [formData, setFormData] = useState({
     code: "",
     product_name: "",

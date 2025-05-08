@@ -29,19 +29,16 @@ const DashboardHome = () => {
   };
 
   useEffect(() => {
+    const timeout = 2000; // artificial delay to let the token get set in local storage
+  
     const fetchSummary = async () => {
       try {
         const res = await axiosInstance.get("/inventory/allitems/");
         const items = res.data;
-
-        // Calculating total items in Inventory
+  
         const total = items.length;
-        const quantity = items.reduce(
-          (sum, item) => sum + (item.quantity || 0),
-          0
-        );
-
-        // Counting Category-wise Inventory Items
+        const quantity = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  
         const categoryCount = {};
         items.forEach((item) => {
           if (item.category in categoryCount) {
@@ -50,17 +47,15 @@ const DashboardHome = () => {
             categoryCount[item.category] = 1;
           }
         });
-
-        // Sorting by Date Added
+  
         const sortedByDate = [...items].sort(
           (a, b) => new Date(b.date_added) - new Date(a.date_added)
         );
-
-        // Product with Low Stock Level
+  
         const lowStock = items.filter(
           (item) => item.stock_level.toLowerCase() === "low"
         );
-
+  
         setLowStockProducts(lowStock);
         setRecentProducts(sortedByDate.slice(0, 5));
         setCategoryStats(categoryCount);
@@ -70,13 +65,16 @@ const DashboardHome = () => {
         console.error("Error fetching summary:", err);
         toast.error("Unable to fetch product summary. Please try again later.");
       } finally {
-        setLoading(false); // Set loading to false when data is fetched or error occurs
+        setLoading(false);
       }
     };
-
-    fetchSummary();
+  
+    const delay = setTimeout(fetchSummary, timeout);
+  
+    // Optional cleanup if the component unmounts before the timeout triggers
+    return () => clearTimeout(delay);
   }, []);
-
+  
   // Format the data for the Pie chart
   const pieData = Object.entries(categoryStats).map(([category, count]) => ({
     name: category,
@@ -97,6 +95,7 @@ const DashboardHome = () => {
         closeButton
       />
 
+      {/* Total Product */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <Card className="bg-white shadow-md border border-gray-200">
           <CardContent className="p-6 flex items-center gap-4">
@@ -116,7 +115,8 @@ const DashboardHome = () => {
             </div>
           </CardContent>
         </Card>
-
+        
+        {/*  Total Qunatity in Inventory */}
         <Card className="bg-white shadow-md border border-gray-200">
           <CardContent className="p-6 flex items-center gap-4">
             <div className="bg-green-100 text-green-600 p-3 rounded-full">
@@ -197,7 +197,7 @@ const DashboardHome = () => {
           </h3>
           <div className="space-y-2">
             {loading ? (
-              <Skeleton className="w-full h-10" /> // Placeholder skeleton for recent products
+              <Skeleton className="w-full h-10" /> 
             ) : (
               recentProducts.map((product) => (
                 <Card key={product.id} className="shadow-sm border">

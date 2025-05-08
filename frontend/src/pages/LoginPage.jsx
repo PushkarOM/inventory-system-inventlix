@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input"; // or adjust the path if alias isn't set
+import { Input } from "@/components/ui/input"; 
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginInfoGraphic from "../assets/8487305.jpg";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState(""); // updated from 'email'
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
+    // Storing the token provided by the backend in local storage
     e.preventDefault();
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/token/", {
@@ -37,6 +38,7 @@ const LoginPage = () => {
           />
         </div>
 
+        {/* Login Feilds  */}
         <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
           <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900">Inventory Login</h2>
           <form className="space-y-4" onSubmit={handleLogin}>

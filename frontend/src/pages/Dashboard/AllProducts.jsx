@@ -32,6 +32,8 @@ import {
   Search
 } from "lucide-react";
 
+
+// Icons Mapping for Different Categories
 const categoryIcon = {
   Electronics: <Monitor className="h-8 w-8 text-gray-600" />,
   Apparel: <Shirt className="h-8 w-8 text-gray-600" />,
@@ -58,6 +60,7 @@ const AllProducts = () => {
   const page = parseInt(searchParams.get("page")) || 1;
   const pageSize = 9;
 
+  // building query every time search parameter changes
   const queryUrl = useMemo(() => {
     const category = searchParams.get("category");
     const stock_level = searchParams.get("stock_level");
@@ -80,6 +83,7 @@ const AllProducts = () => {
   }, [searchParams, page]);
   
 
+  // fetching the product details
   useEffect(() => {
     const fetchProducts = async () => {
       try {

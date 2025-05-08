@@ -30,7 +30,7 @@ import {
       image: null,
     });
   
-    // Pre-populate form data when the product prop changes (useEffect)
+    // Pre-populating form data when the product prop changes (useEffect)
     useEffect(() => {
       if (product) {
         setFormData({

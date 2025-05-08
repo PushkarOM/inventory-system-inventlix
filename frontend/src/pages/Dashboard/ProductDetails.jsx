@@ -114,6 +114,8 @@ const ProductDetail = () => {
             Stock Level: {product.stock_level}
           </Badge>
 
+
+        {/*  Edit Modal and Delete Btn */}
           <div className="flex space-x-4 pt-4">
             <Button
               variant="default"
